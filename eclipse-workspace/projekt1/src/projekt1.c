@@ -1,0 +1,69 @@
+/*
+ ============================================================================
+ Name        : projekt1.c
+ Author      : Aleksander Brajer-Wiaderek
+ Version     :
+ Copyright   : Your copyright notice
+ Description : Hello World in C, Ansi-style
+ ============================================================================
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <linux/if_ether.h>
+#include "ipv6.h"
+
+
+int iDataLen = 0;
+
+
+int main(void)
+{
+	printf("Uruchamiam odbieranie ramek Ethernet.\n"); /* prints */
+	//Utworzenie bufora dla odbieranych ramek Ethernet
+
+	unsigned char* buffer = (void*) malloc(ETH_FRAME_LEN);
+	//Otwarcie gniazda pozwalającego na odbiór wszystkich ramek Ethernet
+	int iEthSockHandl = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
+	//Kontrola czy gniazdo zostało otwarte poprawnie, w przypadku bledu wyświetlenie komunikatu.
+		if (iEthSockHandl<0)
+		printf("Problem z otwarciem gniazda : %s!\n", strerror(errno));
+		//Zmienna do przechowywania rozmiaru odebranych danych
+		int iDataLen = 0;
+		//Pętla nieskończona do odbierania ramek Ethernet
+			while (1) {
+			//Odebranie ramki z utworzonego wcześniej gniazda i zapisanie jej do bufora
+			iDataLen = recvfrom(iEthSockHandl, buffer, ETH_FRAME_LEN, 0, NULL, NULL);
+			//Kontrola czy nie było bledu podczas odbierania ramki
+				if (iDataLen == -1)
+				printf("Nie moge odebrac ramki: %s! \n", strerror(errno));
+				else { //Jeśli ramka zostanie odebrana poprawnie, wyświetli jej zawartość
+					if ((*(buffer + 12) == 0x86) && (*(buffer + 13) == 0xdd))
+					{
+						printf("\nOdebrano pakiet IPv6 o rozmiarze %d [B]: \n"
+								"Wersja: %0.2x \n"
+								"Etykieta przeplywu: %0.2x %0.2x %0.2x \n"
+								"Dlugosc danych: %0.2x %0.2x \n"
+								"Nastepny naglowek: %0.2x \n"
+								"Limit przeskokow: %0.2x \n"
+								"Adres zrodlowy: %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x \n"
+								"Adres docelowy: %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x %0.2x \n",
+								iDataLen,
+								(*(buffer + 14)),
+								(*(buffer + 15)),(*(buffer + 16)),(*(buffer + 17)),
+								(*(buffer + 18)),(*(buffer + 19)),
+								(*(buffer + 20)),
+								(*(buffer + 21)),
+								(*(buffer + 22)),(*(buffer + 23)),(*(buffer + 24)),(*(buffer + 25)),(*(buffer + 26)),(*(buffer + 27)),(*(buffer + 28)),(*(buffer + 29)),(*(buffer + 30)),(*(buffer + 31)),(*(buffer + 32)),(*(buffer + 33)),(*(buffer + 34)),(*(buffer + 35)),(*(buffer + 36)),(*(buffer + 37)),
+								(*(buffer + 38)),(*(buffer + 39)),(*(buffer + 40)),(*(buffer + 41)),(*(buffer + 42)),(*(buffer + 43)),(*(buffer + 44)),(*(buffer + 45)),(*(buffer + 46)),(*(buffer + 47)),(*(buffer + 48)),(*(buffer + 49)),(*(buffer + 50)),(*(buffer + 51)),(*(buffer + 52)),(*(buffer + 53))
+								);
+						} else{}
+
+			}
+	}
+return EXIT_SUCCESS;
+}
+

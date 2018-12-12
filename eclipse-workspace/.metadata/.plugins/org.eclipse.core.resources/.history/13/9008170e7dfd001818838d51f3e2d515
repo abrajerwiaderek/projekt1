@@ -1,0 +1,223 @@
+#include <stdio.h> // in/out
+#include <stdlib.h> // malloc itp
+#include <errno.h> // numer bledu
+#include <string.h> // memcpy
+#include <sys/socket.h> // deifniuje socklen_t
+#include <linux/if_ether.h> // ethernet
+#include "ipv6.h" //naglowek
+
+//struct lista* pierwszy = NULL;
+int licznik;
+int iDataLen = 0;
+int d=0;
+int e=0;
+
+struct listaprzejscie *adres_zakotwiczenia = NULL;
+  struct listaprzejscie *adres_obecny = NULL;
+  struct listaprzejscie *adres_ostatni = NULL;
+  struct listaprzejscie *usun = NULL;
+
+  unsigned char dane[1500];
+  //memset(dane, 0, 1500);
+
+
+void IPv6(unsigned char* recivedPocket[1500],int iDataLen)
+{
+/*	struct lista* pomoc;
+	pomoc = (struct lista*) malloc(sizeof(struct lista));
+*/
+
+    for (int i=0;i<20;i++)
+     {
+         if(adres_zakotwiczenia == NULL) //jeśli lista jest pusta
+         {
+             adres_zakotwiczenia = (struct listaprzejscie*) malloc(sizeof(struct listaprzejscie)); //przydzielenie pamieci dla elementu listy
+             adres_obecny = adres_zakotwiczenia;
+             adres_obecny->pierwszy = adres_zakotwiczenia;
+             adres_obecny->nastepny = NULL;
+             adres_obecny->poprzedni = NULL;
+             memcpy (adres_obecny->bufor, recivedPocket, 1500);
+             adres_obecny= NULL;
+
+         }
+         else
+         {
+             adres_ostatni = adres_zakotwiczenia;
+             for (int j=0;j<20;j++)
+             {
+                 if (adres_ostatni->nastepny != NULL)
+                 {
+                     adres_ostatni = adres_ostatni->nastepny;
+                 }
+                 else
+                     break;
+             }
+         adres_obecny = (struct listaprzejscie*) malloc(sizeof(struct listaprzejscie));
+         adres_ostatni->nastepny = adres_obecny;
+         adres_obecny->pierwszy = adres_zakotwiczenia;
+         adres_obecny->nastepny = NULL;
+         adres_obecny->poprzedni = adres_ostatni;
+         memcpy (adres_obecny->bufor, recivedPocket, 1500);
+
+         }
+     }
+
+}
+/*
+void wyswietl(int iDataLen)
+{
+    	licznik = 0;
+        struct lista* pomoc;
+        pomoc = (struct lista*) malloc(sizeof(struct lista));
+        struct dane* dane;
+                dane = (struct dane*) malloc(sizeof(struct dane));
+    	adres_obecny= adres_zakotwiczenia;
+    	for (int ce=0;ce<20;ce++)
+    	{
+
+
+            pomoc->portZrodlowy[0] = adres_obecny->bufor[0];
+            	pomoc->portZrodlowy[1] = adres_obecny->bufor[1];
+            	pomoc->portDocelowy[0] = adres_obecny->bufor[2];
+            	pomoc->portDocelowy[1] = adres_obecny->bufor[3];
+            	pomoc->nrsekwencyjny[0] = adres_obecny->bufor[4];
+            	pomoc->nrsekwencyjny[1] = adres_obecny->bufor[5];
+            	pomoc->nrsekwencyjny[2] = adres_obecny->bufor[6];
+            	pomoc->nrsekwencyjny[3] = adres_obecny->bufor[7];
+            	pomoc->nrpotwbajtu[0] = adres_obecny->bufor[8];
+            	pomoc->nrpotwbajtu[1] = adres_obecny->bufor[9];
+            	pomoc->nrpotwbajtu[2] = adres_obecny->bufor[10];
+            	pomoc->nrpotwbajtu[3] = adres_obecny->bufor[11];
+            	pomoc->dlnaglowka[0] = adres_obecny->bufor[12];
+            	pomoc->dlnaglowka[1] = adres_obecny->bufor[13];
+            	pomoc->rozmiarokna[0] = adres_obecny->bufor[14];
+            	pomoc->rozmiarokna[0] = adres_obecny->bufor[15];
+            	pomoc->sumakontrolna[0] = adres_obecny->bufor[16];
+            	pomoc->sumakontrolna[1] = adres_obecny->bufor[17];
+            	pomoc->wskpilnych[0] = adres_obecny->bufor[18];
+            	pomoc->wskpilnych[1] = adres_obecny->bufor[19];
+            	for(int b=20;b<iDataLen;b++)
+            	{
+            		dane->bufor[d]=adres_obecny->bufor[b];
+            		d=d+1;
+            	}
+    		printf("Numer ramki w buforze: %d \n", licznik=licznik + 1);
+    					printf("Rozmiar licznika: %li \n", sizeof(licznik));
+    					printf("Rozmiar struktury naglowka:%d \n", sizeof(struct lista));
+    					printf("Port zrodlowy: %02x %02x\n", pomoc->portZrodlowy[0],pomoc->portZrodlowy[1]);
+    					printf("Port docelowy: %02x %02x\n", pomoc->portDocelowy[0],pomoc->portDocelowy[1]);
+    					printf("Nr sekwencyjny: %02x %02x %02x %02x\n", pomoc->nrsekwencyjny[0], pomoc->nrsekwencyjny[1],pomoc->nrsekwencyjny[2],pomoc->nrsekwencyjny[3]);
+    					printf("Nr potwierdzenia bajtu: %02x %02x %02x %02x\n", pomoc->nrpotwbajtu[0], pomoc->nrpotwbajtu[1],pomoc->nrpotwbajtu[2],pomoc->nrpotwbajtu[3]);
+    					printf("Dl naglowka: %02x %02x\n", pomoc->dlnaglowka[0],pomoc->dlnaglowka[1]);
+    					printf("Rozmiar okna: %02x %02x\n", pomoc->rozmiarokna[0],pomoc->rozmiarokna[1]);
+    					printf("Suma kontrolna: %02x %02x\n", pomoc->sumakontrolna[0],pomoc->sumakontrolna[1]);
+    					printf("Wsk pilnych: %02x %02x\n", pomoc->wskpilnych[0],pomoc->wskpilnych[1]);
+    					printf("Dane: ");
+    					for(int a=20;a<iDataLen;a++)
+    					{
+    						printf("%02x ",dane->bufor[a]);
+    					}
+    					printf("\n\n");
+
+    	}
+
+
+
+
+
+
+}
+
+
+void usuwanie()
+
+{
+
+	if (licznik == 1) {
+		adres_zakotwiczenia = NULL;
+		free(pierwszy);
+	}
+	else //ostatni wezel
+	{
+		adres_obecny = adres_zakotwiczenia;
+		while (adres_obecny->nastepny->nastepny != NULL) {
+			adres_obecny = adres_obecny->nastepny;
+		}
+		adres_ostatni= adres_obecny->nastepny;
+		adres_obecny->nastepny = NULL;
+		free(adres_obecny);
+	};
+	printf("usuwanie wykonane");
+	licznik--;
+}
+*/
+void typ(unsigned char* buffer,int iDataLen)
+{
+	if ((*(buffer + 12) == 0x08) && (*(buffer + 13) == 0x00) && (*(buffer + 23) == 0x08))
+	{
+		printf("Odebrano pakiet EGP o rozmiarze [B] %d \n",iDataLen);
+	}
+	else if ((*(buffer + 12) == 0x08) && (*(buffer + 13) == 0x00) && (*(buffer + 23) == 0x02))
+		{
+			printf("Odebrano pakiet IGMP  o rozmiarze [B] %d \n",iDataLen);
+		}
+	else if ((*(buffer + 12) == 0x08) && (*(buffer + 13) == 0x00) && (*(buffer + 23) == 0x01))
+		{
+			printf("Odebrano pakiet ICMP o rozmiarze [B] %d \n",iDataLen);
+		}
+	else
+			{
+				printf("Odebrano inny pakiet o rozmiarze [B] %d \n", iDataLen);
+			}
+
+}
+int main(void)
+{
+	int i = 1;
+	printf("Uruchamiam odbieranie ramek Ethernet.\n"); /* prints */
+	//Utworzenie bufora dla odbieranych ramek Ethernet
+
+	unsigned char* buffer = (void*) malloc(ETH_FRAME_LEN);
+	//Otwarcie gniazda pozwalającego na odbiór wszystkich ramek Ethernet
+	int iEthSockHandl = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
+	//Kontrola czy gniazdo zostało otwarte poprawnie, w przypadku bledu wyświetlenie komunikatu.
+		if (iEthSockHandl<0)
+		printf("Problem z otwarciem gniazda : %s!\n", strerror(errno));
+		//Zmienna do przechowywania rozmiaru odebranych danych
+		int iDataLen = 0;
+		//Pętla nieskończona do odbierania ramek Ethernet
+			while (1) {
+			//Odebranie ramki z utworzonego wcześniej gniazda i zapisanie jej do bufora
+			iDataLen = recvfrom(iEthSockHandl, buffer, ETH_FRAME_LEN, 0, NULL, NULL);
+			//Kontrola czy nie było bledu podczas odbierania ramki
+				if (iDataLen == -1)
+				printf("Nie moge odebrac ramki: %s! \n", strerror(errno));
+				else { //jeśli ramka odebrana poprawnie wyświetlenie jej zawartości
+					typ(buffer,iDataLen);
+					if ((*(buffer + 12) == 0x08) && (*(buffer + 13) == 0x00) && (*(buffer + 23) == 0x06))
+					{
+						printf("Odebrano pakiet IPv6 o rozmiarze %d [B]: \n",iDataLen);
+						i = i + 1;
+							if (i <= 20)
+							{
+								IPv6(buffer + 34,iDataLen);
+							}
+							else if (i > 20 && i <= 21)
+							{
+								printf("\n\n BUFOR IPv6 PEŁNY, OTO JEGO ZAWARTOŚĆ: \n\n");
+								wyswietl(iDataLen);
+							} else
+							{
+								while (licznik > 1)
+								{
+								usuwanie();
+								}
+							i = 1;
+							}
+
+					}
+
+			}
+	}
+return EXIT_SUCCESS;
+}

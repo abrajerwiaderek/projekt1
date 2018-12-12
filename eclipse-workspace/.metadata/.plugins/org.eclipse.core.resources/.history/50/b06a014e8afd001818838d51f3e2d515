@@ -1,0 +1,28 @@
+#ifndef ipv6_H_
+#define ipv6_H_
+
+/*struct lista {
+    unsigned char portNadawcy[2];
+    unsigned char portOdbiorcy[2];
+    unsigned char adresZrodlowy[16];
+    unsigned char adresDocelowy[16];
+    unsigned char dlnaglowka[2];
+    unsigned char rozmiarokna[2];
+    unsigned char sumakontrolna[2];
+    unsigned char wskpilnych[2];
+
+};*/
+struct listaprzejscie
+{
+    struct listaprzejscie* pierwszy;
+    struct listaprzejscie* poprzedni;
+    struct listaprzejscie* nastepny;
+    unsigned char bufor[1500];
+};
+struct dane
+{
+    unsigned char bufor[1500];
+};
+
+
+#endif

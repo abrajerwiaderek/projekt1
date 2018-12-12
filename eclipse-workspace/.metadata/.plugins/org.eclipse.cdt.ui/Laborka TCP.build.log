@@ -1,0 +1,6 @@
+23:35:06 **** Incremental Build of configuration Debug for project Laborka TCP ****
+make all 
+make: Nothing to be done for 'all'.
+
+23:35:06 Build Finished. 0 errors, 0 warnings. (took 109ms)
+

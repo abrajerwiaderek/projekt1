@@ -1,0 +1,61 @@
+12:04:22 **** Incremental Build of configuration Debug for project projekt1 ****
+make all 
+Building file: ../src/projekt1.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/projekt1.d" -MT"src/projekt1.o" -o "src/projekt1.o" "../src/projekt1.c"
+../src/projekt1.c: In function ‘main’:
+../src/projekt1.c:30:50: warning: implicit declaration of function ‘htons’ [-Wimplicit-function-declaration]
+  int iEthSockHandl = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
+                                                  ^~~~~
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+       printf("\nOdebrano pakiet IPv6 o rozmiarze %d [B]: \n"
+              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+../src/projekt1.c:46:14: warning: '0' flag ignored with precision and ‘%x’ gnu_printf format [-Wformat=]
+Finished building: ../src/projekt1.c
+ 
+Building target: projekt1
+Invoking: GCC C Linker
+gcc  -o "projekt1"  ./src/projekt1.o   
+Finished building target: projekt1
+ 
+12:04:24 **** Incremental Build of configuration Debug for project projekt1 ****
+make all 
+make: Nothing to be done for 'all'.

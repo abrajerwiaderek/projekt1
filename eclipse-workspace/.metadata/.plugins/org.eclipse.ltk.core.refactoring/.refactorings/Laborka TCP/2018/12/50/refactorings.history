@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Laborka TCP/src/tcph.h&apos; to &apos;ipv6.h&apos;" description="Rename resource &apos;tcph.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/tcph.h" name="ipv6.h" stamp="1544552001391" updateReferences="true"/>
+</session>

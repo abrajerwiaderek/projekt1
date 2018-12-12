@@ -1,0 +1,15 @@
+#ifndef IPV6_H_
+#define IPV6_H_
+
+
+struct element_bufora
+{
+	struct element_bufora* adres_zakotwiczenia;
+	struct element_bufora* poprzedni;
+	struct element_bufora* nastepny;
+	unsigned char bufor[1500];
+};
+
+
+
+#endif

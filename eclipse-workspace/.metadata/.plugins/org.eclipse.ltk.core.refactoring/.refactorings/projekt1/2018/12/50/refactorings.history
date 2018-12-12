@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;projekt1/src/ipv6&apos; to &apos;ipv6.h&apos;" description="Rename resource &apos;ipv6&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/ipv6" name="ipv6.h" stamp="1544567977338" updateReferences="true"/>
+</session>

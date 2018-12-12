@@ -1,0 +1,28 @@
+ifndef TCPHEADER_H_
+#define TCPHEADER_H_
+
+struct lista {
+    unsigned char portZrodlowy[2];
+    unsigned char portDocelowy[2];
+    unsigned char nrsekwencyjny[4];
+    unsigned char nrpotwbajtu[4];
+    unsigned char dlnaglowka[2];
+    unsigned char rozmiarokna[2];
+    unsigned char sumakontrolna[2];
+    unsigned char wskpilnych[2];
+
+};
+struct listaprzejscie
+{
+    struct listaprzejscie* pierwszy;
+    struct listaprzejscie* poprzedni;
+    struct listaprzejscie* nastepny;
+    unsigned char bufor[1500];
+};
+struct dane
+{
+    unsigned char bufor[1500];
+};
+
+
+#endif
